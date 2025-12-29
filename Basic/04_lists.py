@@ -40,11 +40,14 @@ lista1 = [1, 2, 3]
 
 lista.append("Ingeniero")  # Agregar al final
 lista.insert(1, "Rojo")    # Agregar en posición específica
+
 lista.remove("Cesar")      # Eliminar elemento por valor
 print(lista.pop(2))         # Elimina el ultimo elemento, con parametro el indice indicado
+lista.clear ()            # Limpia toda la lista
+
 print(lista.count(23))    # cuenta la cantidad de vces que repite
 print(lista.index("peru"))  # Devulve la posicion del elemento
-lista.clear ()            # Limpia toda la lista
+
 listax = lista.copy ()   # copia el contenido
 lista.extend (lista1)    # Combina dos iterables
 lista.reverse ()  # invierte el contenido de un iterable

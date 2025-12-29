@@ -1,7 +1,7 @@
 
-lista1 = [1, 3, 2]
-lista2 = [4, 5, 6]
+new = frozenset ({1, 2, 3, 4})
+new2 = frozenset ({5, 6})
 
 
-lista1.extend (lista2)
-print (lista1)
+print (new.isdisjoint (new2))
+
