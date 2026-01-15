@@ -1,4 +1,4 @@
-# Clase en vídeo: https://youtu.be/TbcEqkabAWU?t=24010
+
 
 ### Arithmetics ###
 
