@@ -1,78 +1,134 @@
-# Clase en vídeo: https://youtu.be/TbcEqkabAWU?t=19762
 
-### Regular Expressions ###
+# RegEx
+
+"""
+Una RegEx, o expresión regular, es una secuencia de caracteres que forma un patrón de búsqueda.
+
+Function	        Description
+- re.search()	    busca y devuelve la 1ra coincidencia en la cadena y devuelve un objeto Match si hay una coincidencia.
+- re.match()	    Busca coincidencia solo al inicio
+- re.findall()	    Devuelve una lista que contiene todas las coincidencias.
+- re.finditer()	    Iterador de coincidencias
+- re.sub()	        Busca y reeemplaza el texto en eleccion, Devulve nuevo string
+- re.split()	    Devuelve una lista donde la cadena se ha dividido en cada coincidencia:
+"""
+
+"""  OBJETOS DE COINCIDENCIAS -> SEARCH <-
+.span()    devuelve una tupla que contiene las posiciones de inicio y fin de la coincidencia.
+.string    devuelve la cadena pasada a la función.
+.group()   devuelve la parte de la cadena donde hubo una coincidencia.
+"""
+
+""" SECUENCIAS ESPECIALES
+Clase	Significado
+\d	    Dígito (0-9)
+\D	    No dígito (0-9)
+\w	    Letras + números + _     ->   (a-z, A-Z, 0-9, _)
+\W	    No \w
+\s	    Espacio
+\S	    No espacio
+"""
+
+"""
+Character	Description	                                                                  Example
+[]	        Un conjunto de caracteres	                                                  "[a-m]"	
+\	        Signals a special sequence (can also be used to escape special characters)	  "\d"	
+.	        Cualquier carácter (excepto el carácter de nueva línea)	                      "he..o"	
+^	        Empíeza con	(texto)                                                           "^hello"	
+$	        Termina con	 (texto)                                                          "planet$"	
+*	        Cero o más ocurrencias	                                                      "he.*o"	
++	        Uno o mas ocurrencias	                                                      "he.+o"	
+?	        Cero o una ocurrencia                                                         "he.?o"	
+{}	        Exactamente el número especificado de ocurrencias	                          "he.{2}o"	
+|	        Cualquiera o	                                                              "falls|stays"	
+()	        Captura y grupo solo lo que esta dentro del parentesis
+"""
+
+"""
+Set	        Description	
+[arn]	    Devuelve una coincidencia donde uno de los caracteres especificados (a, r o n) está presente	
+[a-n]	    Devuelve una coincidencia para cualquier carácter en minúscula, alfabéticamente entre a y n	
+[^arn]	    Devuelve una coincidencia para cualquier carácter EXCEPTO a, r y n	
+[0123]	    Devuelve una coincidencia donde cualquiera de los dígitos especificados (0, 1, 2 o 3) está presente	
+[0-9]	    Devuelve una coincidencia para cualquier dígito entre 0 y 9 	
+[0-5][0-9]	Devuelve una coincidencia para cualquier número de dos dígitos entre 00 y 59
+[a-zA-Z]	Devuelve una coincidencia para cualquier carácter alfabético entre a y z, en minúscula o en mayúscula.	
+[+]	        En conjuntos, +, *, ., |, (), $,{} no tienen un significado especial, por lo que [+] significa: devolver una coincidencia para cualquier carácter + en la cadena
+"""
+
+
+""" 🔥 FLAGS (MODIFICADORES)
+Flag	Uso
+re.I	Ignorar mayúsculas
+re.M	Multilínea
+re.S	El punto incluye salto
+re.X	Regex comentado
+"""
+
+# -------------------------------------------------- EJEMPLOS
 
 import re
 
-# match
+texto = """Hola mundo. el
+Mi pimer el numero de la suerte el es 945-659
+"""
 
-my_string = "Esta es la lección número 7: Lección llamada Expresiones Regulares"
-my_other_string = "Esta no es la lección número 6: Manejo de ficheros"
+# busca coincidencia en todo el texto devulve objeto "re.match" sino "None"
+var = re.search ("mundo.", texto)
 
-match = re.match("Esta es la lección", my_string, re.I)
-print(match)
-start, end = match.span()
-print(my_string[start:end])
+print (var)            # Devuelve objeto re.match
+print (var.span ())    # Devuelve el rango de la palabra buscada -> (5, 11)
+print (var.start ())   # Devulve la posicion donde empieza
+print (var.end ())     # Devuelve la posicion donde termina
+print (var.group ())   # Devulve la palabra buscada -> "mundo"
 
-match = re.match("Esta no es la lección", my_other_string)
-# if not(match == None): # Otra forma de comprobar el None
-# if match != None: # Otra forma de comprobar el None
-if match is not None:
-    print(match)
-    start, end = match.span()
-    print(my_other_string[start:end])
+# devuelve "re.match" si empieza con la palabra buscada sino "None"
+var1 = re.match ("Hola", texto)
 
-print(re.match("Expresiones Regulares", my_string))
+# findall () y finditer () hacen lo mismo, buscan coincidencia en toda la cadena
+var2 = re.findall ("el", texto)   # Devulve lista
+var3 = re.finditer ("el", texto)  # Devuelve objeto iterador match
 
-# search
+# re.sub (busca, reemplaza, texto)  # Devuelve nuevo string
+texto = "Me gusta el café. El café es rico."
+var = re.sub ("café", "te", texto)
 
-search = re.search("lección", my_string, re.I)
-print(search)
-start, end = search.span()
-print(my_string[start:end])
+# re.split (separador, texto) : Devuelve una lista 
+texto = "Manzana,Pera,Naranja"
+var4 = re.split (",", texto)
 
-# findall
+## -------------------------------- Insertando expresion regulares -------------------------------------
 
-findall = re.findall("lección", my_string, re.I)
-print(findall)
+# El punto representa CUALQUIER caracter (excepto nueva línea)
+re.findall("a.c", "abc axc a c a-c app")  # ['abc', 'axc', 'a c', 'a-c']
+# Encuentra: a + CUALQUIER CARACTER + c
 
-# split
+# ^ significa "empieza con"
+re.findall("^Hola", "Hola mundo")    # ['Hola'] ✓
+re.findall("^Hola", "Dice Hola")     # [] ✗ (no empieza con Hola)
 
-print(re.split(":", my_string))
+# $ significa "termina con"
+re.findall("mundo$", "Hola mundo")   # ['mundo'] ✓
+re.findall("mundo$", "mundo feliz")  # [] ✗ (no termina con mundo)
 
-# sub
+# * significa * = 0 o más veces
+re.findall("ab*c", "ac abc abbc abbbc")    # ['ac', 'abc', 'abbc', 'abbbc']
+# Encuentra: a + (b cero o más veces) + c
 
-print(re.sub("[l|L]ección", "LECCIÓN", my_string))
-print(re.sub("Expresiones Regulares", "RegEx", my_string))
+# + significa + = 1 o más veces (debe aparecer al menos 1)
+re.findall("ab+c", "ac abc abbc abbbc")   # ['abc', 'abbc', 'abbbc']  
 
-### Regular Expressions Patterns ###
+# ? significa ? = 0 o 1 vez , opcional
+re.findall("ab?c", "ac abc abbc")    # ['ac', 'abc']  (NOTA: 'abbc' NO está porque tiene 2 'b')
 
-# Para aprender y validar expresiones regulares: https://regex101.com
+# {} significa   {n} = exactamente n veces  ;  {n,m} = entre n y m veces
+re.findall("a{3}", "aa aaa aaaa")    # ['aaa', 'aaa'] (de 'aaaa' toma solo 3)
+re.findall("a{2,4}", "a aa aaa aaaa aaaaa")  # ['aa', 'aaa', 'aaaa', 'aaaa'] (entre 2 y 4 'a')
 
-pattern = r"[lL]ección"
-print(re.findall(pattern, my_string))
+# | significa "esto O aquello"
+re.findall("gato|perro", "tengo un gato y un perro")   # ['gato', 'perro']  (encuentra gato O perro)
 
-pattern = r"[lL]ección|Expresiones"
-print(re.findall(pattern, my_string))
-
-pattern = r"[0-9]"
-print(re.findall(pattern, my_string))
-print(re.search(pattern, my_string))
-
-pattern = r"\d"
-print(re.findall(pattern, my_string))
-
-pattern = r"\D"
-print(re.findall(pattern, my_string))
-
-pattern = r"[l].*"
-print(re.findall(pattern, my_string))
-
-email = "mouredev@mouredev.com"
-pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$"
-print(re.match(pattern, email))
-print(re.search(pattern, email))
-print(re.findall(pattern, email))
-
-email = "mouredev@mouredev.com.mx"
-print(re.findall(pattern, email))
+# () agrupa y captura
+resultado = re.search("(ab)+", "ababab")
+print(resultado.group())  # 'ababab' (todo el match)
+print(resultado.group(1)) # 'ab' (lo que capturó el grupo)

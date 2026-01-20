@@ -1,6 +1,9 @@
-Mi nombre es Brais
-Mi apellido es Moure
-35 años
-Y mi lenguaje preferido es Python
-Aunque también me gusta Kotlin
-Y Swift
+Abigail		15.0
+Kristhel		18.0
+Klaren		20.0
+Scarlet		14.0
+Isaias		18.0
+Sheila		12.0
+Dayana		17.0
+Andrea		10.0
+Kriptom		19.0

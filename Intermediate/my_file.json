@@ -1,11 +1,54 @@
 {
-  "name": "Brais",
-  "surname": "Moure",
-  "age": 35,
-  "languages": [
-    "Python",
-    "Swift",
-    "Kotlin"
-  ],
-  "website": "https://moure.dev"
+    "74296543": {
+        "Name": "Isaias Cesar",
+        "Lastname": "Quintana Errazabal",
+        "Promedio": [],
+        "State": "True",
+        "cursos": {
+            "Matematica": [
+                19.0,
+                13.0,
+                15.0,
+                20.0
+            ],
+            "Comunicacion": [
+                19.0,
+                10.0,
+                12.0,
+                18.0
+            ],
+            "Historia": [
+                10.0,
+                12.0,
+                17.8,
+                13.5
+            ]
+        }
+    },
+    "74298765": {
+        "Name": "Kristhel Vivian",
+        "Lastname": "Nolasco Borja",
+        "Promedio": [],
+        "State": "True",
+        "cursos": {
+            "Matematica": [
+                12.0,
+                14.0,
+                10.0,
+                19.0
+            ],
+            "Comunicacion": [
+                12.0,
+                10.0,
+                11.0,
+                5.0
+            ],
+            "Historia": [
+                12.0,
+                14.0,
+                10.0,
+                20.0
+            ]
+        }
+    }
 }

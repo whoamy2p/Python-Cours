@@ -1,99 +1,104 @@
-# Clase en vídeo: https://youtu.be/TbcEqkabAWU?t=15524
 
-### File Handling ###
+#  ------------------------- Archivos TXT -------------------------
 
-import xml
-import csv
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+ruta_txt = BASE_DIR / "Intermediate" / "my_file.txt"
+
+"""
+Modo	Significado
+
+"r"  	leer
+"w"	    escribir (borra el contenido)
+"a"	    agregar (append)
+"x"	    crear (error si existe)
+
+"r+"	leer y escribir
+"w+"	(BORRA) escribir y leer
+"a+"	leer + escribir (append)
+"""
+
+""" --> Trabajar en binario (img, audio, exe, etc) <--
+Modo    Significado
+"rb"	leer binario
+"wb"	escribir binario
+"ab"	agregar binario
+"rb+"	leer/escribir binario
+"""
+
+with open("./Intermediate/my_file.txt", "r", encoding="utf-8") as archivo:
+    contenido = archivo.read()
+
+# Metodos -->
+
+contenido.read ()  # Leer todo el fichero
+contenido.readline ()  # Leer una linea
+contenido.readlines ()  # Leer todas las lineas (return list)
+
+contenido.write ("Hola mundo")  # Escribir en el fichero (sobreescribe todo)
+contenido.writelines ("Iterable")  # Acepta un hiterable
+
+contenido.tell()   # posición actual del cursor
+contenido.seek(0)  # mover cursos
+
+
+# --------------------- Archivo JSON -------------------------
+
+"""
+json.loads (json) -> convertir de json a python
+json.dumps (python) -> convertir de python a json
+    -> indent=4
+    -> separators = (str, str)  : cambiar los separadores
+    -> sort_keys = True  : si el resultado debe ordenarse
+"""
+# ------------- Trabajando en local 
+
 import json
-import os
 
-# .txt file
+# some JSON:
+x =  '{ "name":"John", "age":30, "city":"New York"}'
 
-# Leer, escribir y sobrescribir si ya existe
-txt_file = open("my_file.txt", "w+")
+# parse x:
+y = json.loads(x)
+print (type (y))
 
-txt_file.write(
-    "Mi nombre es Brais\nMi apellido es Moure\n35 años\nY mi lenguaje preferido es Python")
+# the result is a Python dictionary:
+print(y["age"])
 
-# Posiciona el cursor al inicio del fichero
-txt_file.seek(0)
+# ---------- Trabajamos con fichero.json
 
-# Lee e imprime todo el contenido del fichero
-print(txt_file.read())
+"""
+json.load (json) -> convertir de json a python
+json.dump (python) -> convertir de python a json
+    -> indent=4
+    -> separators = (str, str)  : cambiar los separadores
+    -> sort_keys = True  : si el resultado debe ordenarse
+"""
 
-# Lee e imprime 10 caracteres desde el inicio del fichero
-txt_file.seek(0)
-print(txt_file.read(10))
-
-# Lee e imprime el resto de la línea actual desde la posición 11
-print(txt_file.readline())
-
-# Lee e imprime la siguiente línea
-print(txt_file.readline())
-
-# Lee e imprime las líneas restantes del fichero
-for line in txt_file.readlines():
-    print(line)
-
-# Escribe una nueva línea en el fichero
-txt_file.write("\nAunque también me gusta Kotlin")
-
-# Posiciona el cursor al inicio del fichero, lee e imprime todo su contenido
-txt_file.seek(0)
-print(txt_file.read())
-
-# Cierra el fichero
-txt_file.close()
-
-# Agrega una nueva línea en el fichero
-with open("my_file.txt", "a") as my_other_file:
-    my_other_file.write("\nY Swift")
-
-# os.remove("Intermediate/my_file.txt")
-
-# .json file
-
-json_file = open("Intermediate/my_file.json", "w+")
-
-json_test = {
-    "name": "Brais",
-    "surname": "Moure",
-    "age": 35,
-    "languages": ["Python", "Swift", "Kotlin"],
-    "website": "https://moure.dev"}
-
-json.dump(json_test, json_file, indent=2)
-
-json_file.close()
-
-with open("Intermediate/my_file.json") as my_other_file:
-    for line in my_other_file.readlines():
-        print(line)
-
-json_dict = json.load(open("Intermediate/my_file.json"))
-print(json_dict)
-print(type(json_dict))
-print(json_dict["name"])
-
-# .csv file
+with  open (ruta_txt, "r", encoding="utf-8") as file:
+    data = json.load (file)
 
 
-csv_file = open("Intermediate/my_file.csv", "w+")
+"""
+JSONDecodeError 
+- e.msg → descripción humana
+- e.lineno → línea donde falló
+- e.colno → columna
+- e.pos → posición absoluta en el archivo
+"""
 
-csv_writer = csv.writer(csv_file)
-csv_writer.writerow(["name", "surname", "age", "language", "website"])
-csv_writer.writerow(["Brais", "Moure", 35, "Python", "https://moure.dev"])
-csv_writer.writerow(["Roswell", "", 2, "COBOL", ""])
+# NOTA: formateo decinales
 
-csv_file.close()
+# 06.2f
+# ↑ ↑ ↑
+# | | └─ tipo: float (f)
+# | └─── precisión: 2 decimales
+# └───── relleno con ceros + ancho total
 
-with open("Intermediate/my_file.csv") as my_other_file:
-    for line in my_other_file.readlines():
-        print(line)
+# :.2f
+# ↑ ↑ ↑
+# | | └─ float
+# | └─── 2 decimales
+# └────── sin ancho, sin relleno
 
-# .xlsx file
-# import xlrd # Debe instalarse el módulo
-
-# .xml file
-
-# ¿Te atreves a practicar cómo trabajar con este tipo de ficheros?
