@@ -1,18 +1,44 @@
-
 import re
 
+"""
+Ejercicio 22 – Extraer palabras que empiecen con mayúscula
+Empiezan con letra mayúscula
+Luego solo letras minúsculas
+Mínimo 3 letras en total
+"""
 
-# ejrcicio 1
-print (re.findall (r"\d{3}-\d{3}", "IDs: 123-456, 999-000, 42-999, 888-777"))
+text = "Nombres: Ana, juan, Pedro, Lu, Carlos, mAria"
+print (re.findall (r"\b[A-Z][a-z]{2,}\b", text))
 
-# ejercicio 2
-print (re.findall (r"[a-z0-9]+@[a-z]+\.com", "Contactos: admin@test.com, bad@mail, user123@site.com, x@x.com"))
 
-# ejercicio 3
-print (re.findall (r"\d{2}/\d{2}/\d{4}", "Hoy es 19/01/2026 y mañana 20/1/2026 y ayer 05/12/2025"))
+"""
+Ejercicio 23 – Extraer fechas en formato AAAA-MM-DD
+Año: 4 dígitos
+Mes: 01–12
+Día: 01–31 (no necesitas validar meses exactos)
+"""
+text = "Fechas: 2024-01-15, 2023-13-01, 2025-12-31, 20-05-10"
+print (re.findall (r"\b\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12][0-9]|3[01])\b", text))
 
-# ejercicio 4
-print (re.findall (r"\b(?=[A-Za-z0-9]{6,}\b)(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]+\b", "Claves: abc123, 123456, password, A1b2C3, test12, admin"))
+"""
+Ejercicio 24 – Extraer nombres de variables estilo Python
 
-# ejercicios 5
-print (re.findall (r"[A-Z]{3}-\d{4}-[A-Z]{3}", "Tokens: ABC-1234-XYZ, BAD-12-ZZZ, API-9999-KEY, HELLO-0000-WORLD"))
+Empiezan con letra o _
+Luego letras, números o _
+No pueden empezar con número
+"""
+
+text = "Vars: _total, suma1, 2dato, valor_max, $error, temp"
+print (re.findall (r"\b[a-zA-Z_]\w+\b", text, re.I))
+
+"""
+Ejercicio 25 – Extraer etiquetas HTML con contenido
+
+Captura etiquetas simples con su contenido
+Formato: <tag>contenido</tag>
+Sin atributos por ahora
+"""
+text = "<p>Hola</p><div>Texto</div><span>123</span><h1>Título</h1>"
+print (re.findall (r"<[a-z0-9]+>\w+</[a-z0-9]+>", text))
+
+

@@ -27,6 +27,7 @@ Clase	Significado
 \W	    No \w
 \s	    Espacio
 \S	    No espacio
+\b      Limite de palabra (mas estricto la expresion)
 """
 
 """
@@ -39,7 +40,7 @@ $	        Termina con	 (texto)                                                  
 *	        Cero o más ocurrencias	                                                      "he.*o"	
 +	        Uno o mas ocurrencias	                                                      "he.+o"	
 ?	        Cero o una ocurrencia                                                         "he.?o"	
-{}	        Exactamente el número especificado de ocurrencias	                          "he.{2}o"	
+{n} | {n,m}	Exactamente el número especificado de ocurrencias	                          "he.{2}o"	
 |	        Cualquiera o	                                                              "falls|stays"	
 ()	        Captura y grupo solo lo que esta dentro del parentesis
 """
@@ -63,6 +64,37 @@ re.I	Ignorar mayúsculas
 re.M	Multilínea
 re.S	El punto incluye salto
 re.X	Regex comentado
+"""
+
+"""
+NOTA: OJO  --> \ <--
+
+Sí.
+Cuando usas \(, \. , \+, etc.
+estás diciendo literalmente:
+
+👉 “Este símbolo ya no es especial.
+Trátalo como un carácter normal.”
+"""
+
+"""
+OJO:  
+
+Usar \b hace que tu patrón sea más estricto: no solo debe coincidir con la forma que definiste, sino que también tiene que estar aislado (con espacios, caracteres especiales o inicio/final de cadena) para que se capture.
+Sin \b, el patrón solo se fija en la forma y captura coincidencias incluso si están pegadas a otras letras o números.
+"""
+
+"""
+Importante saber 
+--> lookbehind <-- mira hacia atrás
+(?<!X) →  “Antes de aquí, NO debe estar X”
+(?<=X) → “Antes de aquí, SÍ debe estar X”
+
+--> lookahead <-- mira hacia adelante
+(?!X) →  “Después de aquí NO debe venir X”
+(?=X) →  “Después de aquí SÍ debe venir X”
+
+(?:X) -> Agrupa sin capturar -> no crea grupo para extraer luego
 """
 
 # -------------------------------------------------- EJEMPLOS
