@@ -185,7 +185,7 @@ LIMIT numero OFFSET numero;
 Ojito con OFFSET:  siempre va despues de LIMIT Y acompañado de un ORDER BY
 """
 
-# DISTINCT  --> Eliminar duplicados en los resultados
+# DISTINCT  --> Eliminar duplicados en los resultados (con agregaciones)
 """
 SELECT DISTINCT columna
 FROM tabla;
@@ -465,4 +465,64 @@ WHERE m.rating = (
     FROM movies m2
     WHERE m2.director_id = m.director_id
 );
+"""
+
+#*  CONDICIONES EN SQL
+#* CASE/ END  --> Bloque condicional  / WHEN -> if / THEN -> return / ELSE -> else
+
+"""
+CASE
+   WHEN condición THEN valor
+   WHEN condición THEN valor
+   ELSE valor
+END
+
+OJO: Se puede usar en SELECT, JOIN, ORDER BY, GROUP BY / HAVING, WHERE (menos usado)
+OJO: sirve clasificar / transformar / etiquetar datos que ya obtuviste
+"""
+
+#*  OPERACIONES CON DATOS
+#*  || -> Concatenar cadenas de texto
+"""
+first_name || ' ' || last_name
+"""
+
+#* Fechas --> devuelven 'YYYY-MM-DD'
+"""
+Date('now')   =   CURRENT_DATE  --> Fecha actual
+Date('YYYY-MM-DD')  --> Fecha específica
+"""
+
+#* Fecha y hora --> devuelven 'YYYY-MM-DD'
+"""
+DateTime('now')   =   CURRENT_TIMESTAMP  --> Fecha y hora actual 
+DateTime('YYYY-MM-DD HH:MM:SS')  --> Fecha y hora específica
+"""
+
+#* STRFTIME --> Formatear fechas y horas  --> Devuelve texto
+"""
+STRFTIME('%Y', fecha)
+%Y -> Año      %m -> Mes      %d -> Día
+%H -> Hora     %M -> Minuto   %S -> Segundo
+
+OJO: IMPORTANTE: esto se usa cuando la fecha es tipo DATE / TEXT
+"""
+
+#* CAST --> Convertir tipos de datos
+"""
+CAST(valor AS tipo)
+
+Ejem: CAST('2026' AS INTEGER);
+"""
+#* FUNCIONES UTILES
+#* COALESCE() --> Devuelve el primer valor NO NULL por fila de una lista de valores
+"""
+COALESCE(lista_valores, valor_por_defecto)
+
+OJO: evalua fila por fila si no es NULL devuelve su valor, si es NULL devuelve el valor por defecto
+"""
+
+#* NULLIF() --> Comparar dos valores y devolver NULL si son iguales, de lo contrario devuelve el primer valor
+"""
+NULLIF(lista_valores, valor_a_comparar)
 """
